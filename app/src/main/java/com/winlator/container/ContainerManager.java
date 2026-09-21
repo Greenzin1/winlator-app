@@ -152,7 +152,7 @@ public class ContainerManager {
         dstContainer.setDrives(srcContainer.getDrives());
         dstContainer.setHUDMode(srcContainer.getHUDMode());
         dstContainer.setStartupSelection(srcContainer.getStartupSelection());
-        dstContainer.setBox64Preset(srcContainer.getBox64Preset());
+        dstContainer.setBox86Preset(srcContainer.getBox86Preset());
         dstContainer.setDesktopTheme(srcContainer.getDesktopTheme());
         dstContainer.saveData();
 

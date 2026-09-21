@@ -30,8 +30,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 
-import com.winlator.box64.Box64Preset;
-import com.winlator.box64.Box64PresetManager;
+import com.winlator.box86.Box86Preset;
+import com.winlator.box86.Box86PresetManager;
 import com.winlator.container.Container;
 import com.winlator.container.ContainerManager;
 import com.winlator.container.Drive;
@@ -163,8 +163,8 @@ public class ContainerDetailFragment extends Fragment {
         final Spinner sWinVersion = view.findViewById(R.id.SWinVersion);
         sWinVersion.setTag((byte)-1);
 
-        final Spinner sBox64Preset = view.findViewById(R.id.SBox64Preset);
-        Box64PresetManager.loadSpinner(sBox64Preset, isEditMode() ? container.getBox64Preset() : preferences.getString("box64_preset", Box64Preset.DEFAULT));
+        final Spinner sBox86Preset = view.findViewById(R.id.SBox86Preset);
+        Box86PresetManager.loadSpinner(sBox86Preset, isEditMode() ? container.getBox86Preset() : preferences.getString("box86_preset", Box86Preset.DEFAULT));
 
         final CPUListView cpuListView = view.findViewById(R.id.CPUListView);
         final CPUListView cpuListViewWoW64 = view.findViewById(R.id.CPUListViewWoW64);
@@ -198,7 +198,7 @@ public class ContainerDetailFragment extends Fragment {
                 String cpuList = cpuListView.getCheckedCPUListAsString();
                 String cpuListWoW64 = cpuListViewWoW64.getCheckedCPUListAsString();
                 byte startupSelection = (byte)sStartupSelection.getSelectedItemPosition();
-                String box64Preset = Box64PresetManager.getSpinnerSelectedId(sBox64Preset);
+                String box86Preset = Box86PresetManager.getSpinnerSelectedId(sBox86Preset);
                 String desktopTheme = getDesktopTheme(view);
 
                 if (isEditMode()) {
@@ -217,7 +217,7 @@ public class ContainerDetailFragment extends Fragment {
                     container.setDrives(drives);
                     container.setHUDMode(hudMode);
                     container.setStartupSelection(startupSelection);
-                    container.setBox64Preset(box64Preset);
+                    container.setBox86Preset(box86Preset);
                     container.setDesktopTheme(desktopTheme);
                     container.saveData();
 
@@ -245,7 +245,7 @@ public class ContainerDetailFragment extends Fragment {
                     data.put("drives", drives);
                     data.put("hudMode", hudMode);
                     data.put("startupSelection", startupSelection);
-                    data.put("box64Preset", box64Preset);
+                    data.put("box86Preset", box86Preset);
                     data.put("desktopTheme", desktopTheme);
 
                     if (wineInfos.size() > 1) {

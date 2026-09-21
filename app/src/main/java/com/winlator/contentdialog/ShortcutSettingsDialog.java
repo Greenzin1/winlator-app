@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import com.winlator.ContainerDetailFragment;
 import com.winlator.R;
 import com.winlator.ShortcutsFragment;
-import com.winlator.box64.Box64PresetManager;
+import com.winlator.box86.Box86PresetManager;
 import com.winlator.container.GraphicsDrivers;
 import com.winlator.container.Shortcut;
 import com.winlator.core.AppUtils;
@@ -82,8 +82,8 @@ public class ShortcutSettingsDialog extends ContentDialog {
         final CheckBox cbForceFullscreen = findViewById(R.id.CBForceFullscreen);
         cbForceFullscreen.setChecked(shortcut.getExtra("forceFullscreen", "0").equals("1"));
 
-        final Spinner sBox64Preset = findViewById(R.id.SBox64Preset);
-        Box64PresetManager.loadSpinner(sBox64Preset, shortcut.getExtra("box64Preset", shortcut.container.getBox64Preset()));
+        final Spinner sBox86Preset = findViewById(R.id.SBox86Preset);
+        Box86PresetManager.loadSpinner(sBox86Preset, shortcut.getExtra("box86Preset", shortcut.container.getBox86Preset()));
 
         final Spinner sControlsProfile = findViewById(R.id.SControlsProfile);
         loadControlsProfileSpinner(sControlsProfile, shortcut.getExtra("controlsProfile", "0"));
@@ -156,8 +156,8 @@ public class ShortcutSettingsDialog extends ContentDialog {
             String envVars = envVarsView.getEnvVars();
             shortcut.putExtra("envVars", !envVars.isEmpty() ? envVars : null);
 
-            String box64Preset = Box64PresetManager.getSpinnerSelectedId(sBox64Preset);
-            shortcut.putExtra("box64Preset", !box64Preset.equals(shortcut.container.getBox64Preset()) ? box64Preset : null);
+            String box86Preset = Box86PresetManager.getSpinnerSelectedId(sBox86Preset);
+            shortcut.putExtra("box86Preset", !box86Preset.equals(shortcut.container.getBox86Preset()) ? box86Preset : null);
 
             ArrayList<ControlsProfile> profiles = inputControlsManager.getProfiles(true);
             int controlsProfile = sControlsProfile.getSelectedItemPosition() > 0 ? profiles.get(sControlsProfile.getSelectedItemPosition()-1).id : 0;

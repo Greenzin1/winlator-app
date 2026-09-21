@@ -28,7 +28,7 @@ public abstract class GeneralComponents {
     private static final String INSTALLABLE_COMPONENTS_URL = "https://raw.githubusercontent.com/brunodev85/winlator/main/installable_components/%s";
 
     public enum Type {
-        BOX64, TURNIP, DXVK, VKD3D, WINED3D, SOUNDFONT, ADRENOTOOLS_DRIVER;
+        BOX86, TURNIP, DXVK, VKD3D, WINED3D, SOUNDFONT, ADRENOTOOLS_DRIVER;
 
         private String lowerName() {
             return name().toLowerCase(Locale.ENGLISH);
@@ -36,8 +36,8 @@ public abstract class GeneralComponents {
 
         private String title() {
             switch (this) {
-                case BOX64:
-                    return "Box64";
+                case BOX86:
+                    return "Box86";
                 case TURNIP:
                     return "Turnip";
                 case DXVK:
@@ -57,8 +57,8 @@ public abstract class GeneralComponents {
 
         private String assetFolder() {
             switch (this) {
-                case BOX64:
-                    return "box64";
+                case BOX86:
+                    return "box86";
                 case TURNIP:
                     return "graphics_driver";
                 case WINED3D:
@@ -113,7 +113,7 @@ public abstract class GeneralComponents {
         }
 
         private boolean isVersioned() {
-            return this == BOX64 || this == TURNIP || this == DXVK || this == VKD3D || this == WINED3D;
+            return this == BOX86 || this == TURNIP || this == DXVK || this == VKD3D || this == WINED3D;
         }
     }
 
@@ -121,8 +121,8 @@ public abstract class GeneralComponents {
         String[] items = new String[0];
 
         switch (type) {
-            case BOX64:
-                items = new String[]{DefaultVersion.BOX64};
+            case BOX86:
+                items = new String[]{DefaultVersion.BOX86};
                 break;
             case TURNIP:
                 items = new String[]{DefaultVersion.TURNIP};

@@ -6,7 +6,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wno-unused-function -Wimplicit-function
 
 include_directories(include)
 include_directories(../winlator/include)
-include_directories(../libadrenotools/include)
 
 add_library(vortekrenderer SHARED
             src/main.c
@@ -22,7 +21,6 @@ add_library(vortekrenderer SHARED
             src/timeline_semaphore.c)
 
 target_link_libraries(vortekrenderer
-                      adrenotools
                       winlator
                       log
                       android)

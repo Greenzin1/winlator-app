@@ -120,8 +120,8 @@
     <string name="estimated_used_space">Espaço Usado (Estimado)</string>
     <string name="advanced">Avançado</string>
     <string name="system">Sistema</string>
-    <string name="box64_preset">Predefinição Box64</string>
-    <string name="box64_version">Versão Box64</string>
+    <string name="box86_preset">Predefinição Box86</string>
+    <string name="box86_version">Versão Box86</string>
     <string name="letter">Letra</string>
     <string name="target_path">Caminho Principal</string>
     <string name="width">Largura</string>
@@ -173,7 +173,7 @@
     <string name="options">Opções</string>
     <string name="logs">Logs</string>
     <string name="enable_wine_debug">Habilitar depuração do Wine</string>
-    <string name="box64_logs">Logs do Box64</string>
+    <string name="box86_logs">Logs do Box86</string>
     <string name="export">Exportar</string>
     <string name="logs_exported_to">Logs exportados para</string>
     <string name="general">Geral</string>

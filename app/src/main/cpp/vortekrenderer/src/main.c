@@ -8,7 +8,7 @@
 #include "vulkan_helper.h"
 #include "jni_utils.h"
 
-#include "adrenotools/driver.h"
+#include <dlfcn.h>
 
 VulkanWrapper vulkanWrapper = {0};
 bool vortekSerializerCastVkObject = true;
@@ -16,21 +16,8 @@ bool vortekSerializerCastVkObject = true;
 static void* openVulkanLibrary(JNIEnv* env, jstring nativeLibraryDir, jstring libvulkanPath) {
     void* libvulkan;
     if (libvulkanPath) {
-        const char* nativeLibraryDirC = (*env)->GetStringUTFChars(env, nativeLibraryDir, NULL);
         const char* libvulkanPathC = (*env)->GetStringUTFChars(env, libvulkanPath, NULL);
-        const char* libvulkanName = basename(libvulkanPathC);
-
-        char libvulkanDir[PATH_MAX] = {0};
-        strcpy(libvulkanDir, dirname(libvulkanPathC));
-        strcat(libvulkanDir, "/");
-
-        char* tmpDir;
-        asprintf(&tmpDir, "%s%s", libvulkanDir, "tmp");
-        mkdir(tmpDir, S_IRWXU | S_IRWXG);
-
-        libvulkan = adrenotools_open_libvulkan(RTLD_NOW | RTLD_LOCAL, ADRENOTOOLS_DRIVER_CUSTOM, tmpDir, nativeLibraryDirC, libvulkanDir, libvulkanName, NULL, NULL);
-
-        (*env)->ReleaseStringUTFChars(env, nativeLibraryDir, nativeLibraryDirC);
+        libvulkan = dlopen(libvulkanPathC, RTLD_NOW | RTLD_LOCAL);
         (*env)->ReleaseStringUTFChars(env, libvulkanPath, libvulkanPathC);
     }
     else libvulkan = dlopen(LIBVULKAN_PATH, RTLD_NOW | RTLD_LOCAL);

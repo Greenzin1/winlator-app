@@ -120,8 +120,8 @@
     <string name="estimated_used_space">Расчетное используемое место</string>
     <string name="advanced">Продвинутые</string>
     <string name="system">Система</string>
-    <string name="box64_preset">Предустановка Box64</string>
-    <string name="box64_version">Версия Box64</string>
+    <string name="box86_preset">Предустановка Box86</string>
+    <string name="box86_version">Версия Box86</string>
     <string name="letter">Буква</string>
     <string name="target_path">Путь к диску</string>
     <string name="width">Ширина</string>
@@ -173,7 +173,7 @@
     <string name="options">Опции</string>
     <string name="logs">Логи</string>
     <string name="enable_wine_debug">Включить отладку Wine</string>
-    <string name="box64_logs">Логи Box64</string>
+    <string name="box86_logs">Логи Box86</string>
     <string name="export">Экспорт</string>
     <string name="logs_exported_to">Логи экспортированы в</string>
     <string name="general">Общие</string>

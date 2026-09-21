@@ -35,9 +35,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.winlator.box64.Box64EditPresetDialog;
-import com.winlator.box64.Box64Preset;
-import com.winlator.box64.Box64PresetManager;
+import com.winlator.box86.Box86EditPresetDialog;
+import com.winlator.box86.Box86Preset;
+import com.winlator.box86.Box86PresetManager;
 import com.winlator.container.Container;
 import com.winlator.container.ContainerManager;
 import com.winlator.contentdialog.ContentDialog;
@@ -122,12 +122,12 @@ public class SettingsFragment extends Fragment {
         String midiInputDevice = preferences.getString("midi_input_device", "auto");
         loadMIDIInputDeviceSpinner(sMIDIInputDevice, midiInputDevice);
 
-        final Spinner sBox64Version = view.findViewById(R.id.SBox64Version);
-        String box64Version = preferences.getString("box64_version", null);
-        GeneralComponents.initViews(GeneralComponents.Type.BOX64, view.findViewById(R.id.Box64Toolbox), sBox64Version, box64Version, DefaultVersion.BOX64);
+        final Spinner sBox86Version = view.findViewById(R.id.SBox86Version);
+        String box86Version = preferences.getString("box86_version", null);
+        GeneralComponents.initViews(GeneralComponents.Type.BOX86, view.findViewById(R.id.Box86Toolbox), sBox86Version, box86Version, DefaultVersion.BOX86);
 
-        final Spinner sBox64Preset = view.findViewById(R.id.SBox64Preset);
-        loadBox64PresetSpinner(view, sBox64Preset);
+        final Spinner sBox86Preset = view.findViewById(R.id.SBox86Preset);
+        loadBox86PresetSpinner(view, sBox86Preset);
 
         final RadioGroup rgAppTheme = view.findViewById(R.id.RGAppTheme);
         final int oldAppThemeId = preferences.getInt("app_theme", APP_THEME_DARK) == APP_THEME_DARK ? R.id.RBDark : R.id.RBLight;
@@ -180,8 +180,8 @@ public class SettingsFragment extends Fragment {
         final ArrayList<String> wineDebugChannels = new ArrayList<>(Arrays.asList(preferences.getString("wine_debug_channels", DEFAULT_WINE_DEBUG_CHANNELS).split(",")));
         loadWineDebugChannels(view, wineDebugChannels);
 
-        final Spinner sBox64Logs = view.findViewById(R.id.SBox64Logs);
-        sBox64Logs.setSelection(preferences.getInt("box64_logs", 0));
+        final Spinner sBox86Logs = view.findViewById(R.id.SBox86Logs);
+        sBox86Logs.setSelection(preferences.getInt("box86_logs", 0));
 
         final CheckBox cbSaveLogsToFile = view.findViewById(R.id.CBSaveLogsToFile);
         cbSaveLogsToFile.setChecked(preferences.getBoolean("save_logs_to_file", false));
@@ -225,15 +225,15 @@ public class SettingsFragment extends Fragment {
         view.findViewById(R.id.BTConfirm).setOnClickListener((v) -> {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("soundfont", sSoundFont.getSelectedItem().toString());
-            editor.putString("box64_version", StringUtils.parseIdentifier(sBox64Version.getSelectedItem()));
-            editor.putString("box64_preset", Box64PresetManager.getSpinnerSelectedId(sBox64Preset));
+            editor.putString("box86_version", StringUtils.parseIdentifier(sBox86Version.getSelectedItem()));
+            editor.putString("box86_preset", Box86PresetManager.getSpinnerSelectedId(sBox86Preset));
             editor.putBoolean("move_cursor_to_touchpoint", cbMoveCursorToTouchpoint.isChecked());
             editor.putBoolean("capture_pointer_on_external_mouse", cbCapturePointerOnExternalMouse.isChecked());
             editor.putFloat("cursor_speed", sbCursorSpeed.getValue() / 100.0f);
             editor.putFloat("cursor_scale", sbCursorSize.getValue() / 100.0f);
             editor.putInt("cursor_color", cpvCursorColor.getColor());
             editor.putBoolean("enable_wine_debug", cbEnableWineDebug.isChecked());
-            editor.putInt("box64_logs", sBox64Logs.getSelectedItemPosition());
+            editor.putInt("box86_logs", sBox86Logs.getSelectedItemPosition());
             editor.putBoolean("save_logs_to_file", cbSaveLogsToFile.isChecked());
             editor.putBoolean("open_android_browser_from_wine", cbOpenAndroidBrowserFromWine.isChecked());
             editor.putBoolean("use_android_clipboard_on_wine", cbUseAndroidClipboardOnWine.isChecked());
@@ -303,38 +303,38 @@ public class SettingsFragment extends Fragment {
         sGamepadModel.setSelection(selectedPosition);
     }
 
-    private void loadBox64PresetSpinner(View view, final Spinner sBox64Preset) {
+    private void loadBox86PresetSpinner(View view, final Spinner sBox86Preset) {
         final Context context = getContext();
 
         Runnable updateSpinner = () -> {
-            Box64PresetManager.loadSpinner(sBox64Preset, preferences.getString("box64_preset", Box64Preset.DEFAULT));
+            Box86PresetManager.loadSpinner(sBox86Preset, preferences.getString("box86_preset", Box86Preset.DEFAULT));
         };
 
         updateSpinner.run();
 
-        view.findViewById(R.id.BTAddBox64Preset).setOnClickListener((v) -> {
-            Box64EditPresetDialog dialog = new Box64EditPresetDialog(context, null);
+        view.findViewById(R.id.BTAddBox86Preset).setOnClickListener((v) -> {
+            Box86EditPresetDialog dialog = new Box86EditPresetDialog(context, null);
             dialog.setOnConfirmCallback(updateSpinner);
             dialog.show();
         });
-        view.findViewById(R.id.BTEditBox64Preset).setOnClickListener((v) -> {
-            Box64EditPresetDialog dialog = new Box64EditPresetDialog(context, Box64PresetManager.getSpinnerSelectedId(sBox64Preset));
+        view.findViewById(R.id.BTEditBox86Preset).setOnClickListener((v) -> {
+            Box86EditPresetDialog dialog = new Box86EditPresetDialog(context, Box86PresetManager.getSpinnerSelectedId(sBox86Preset));
             dialog.setOnConfirmCallback(updateSpinner);
             dialog.show();
         });
-        view.findViewById(R.id.BTDuplicateBox64Preset).setOnClickListener((v) -> {
-            Box64PresetManager.duplicatePreset(context, Box64PresetManager.getSpinnerSelectedId(sBox64Preset));
+        view.findViewById(R.id.BTDuplicateBox86Preset).setOnClickListener((v) -> {
+            Box86PresetManager.duplicatePreset(context, Box86PresetManager.getSpinnerSelectedId(sBox86Preset));
             updateSpinner.run();
-            sBox64Preset.setSelection(sBox64Preset.getCount()-1);
+            sBox86Preset.setSelection(sBox86Preset.getCount()-1);
         });
-        view.findViewById(R.id.BTRemoveBox64Preset).setOnClickListener((v) -> {
-            final String presetId = Box64PresetManager.getSpinnerSelectedId(sBox64Preset);
-            if (!presetId.startsWith(Box64Preset.CUSTOM)) {
+        view.findViewById(R.id.BTRemoveBox86Preset).setOnClickListener((v) -> {
+            final String presetId = Box86PresetManager.getSpinnerSelectedId(sBox86Preset);
+            if (!presetId.startsWith(Box86Preset.CUSTOM)) {
                 AppUtils.showToast(context, R.string.you_cannot_remove_this_preset);
                 return;
             }
             ContentDialog.confirm(context, R.string.do_you_want_to_remove_this_preset, () -> {
-                Box64PresetManager.removePreset(context, presetId);
+                Box86PresetManager.removePreset(context, presetId);
                 updateSpinner.run();
             });
         });
@@ -504,8 +504,8 @@ public class SettingsFragment extends Fragment {
     public static void resetPreferenceVersions(AppCompatActivity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("box64_version", DefaultVersion.BOX64);
-        editor.remove("current_box64_version");
+        editor.putString("box86_version", DefaultVersion.BOX86);
+        editor.remove("current_box86_version");
         editor.remove("current_graphics_driver");
         editor.apply();
     }

@@ -1,4 +1,4 @@
-package com.winlator.box64;
+package com.winlator.box86;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,18 +26,18 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-public class Box64EditPresetDialog extends ContentDialog {
+public class Box86EditPresetDialog extends ContentDialog {
     private final Context context;
-    private final Box64Preset preset;
+    private final Box86Preset preset;
     private final boolean readonly;
     private Runnable onConfirmCallback;
 
-    public Box64EditPresetDialog(@NonNull Context context, String presetId) {
-        super(context, R.layout.box64_edit_preset_dialog);
+    public Box86EditPresetDialog(@NonNull Context context, String presetId) {
+        super(context, R.layout.box86_edit_preset_dialog);
         this.context = context;
-        preset = presetId != null ? Box64PresetManager.getPreset(context, presetId) : null;
+        preset = presetId != null ? Box86PresetManager.getPreset(context, presetId) : null;
         readonly = preset != null && !preset.isCustom();
-        setTitle(StringUtils.getString(context, "box64_preset"));
+        setTitle(StringUtils.getString(context, "box86_preset"));
         setIcon(R.drawable.icon_env_var);
 
         final EditText etName = findViewById(R.id.ETName);
@@ -46,14 +46,14 @@ public class Box64EditPresetDialog extends ContentDialog {
         if (preset != null) {
             etName.setText(preset.name);
         }
-        else etName.setText(context.getString(R.string.preset)+"-"+ Box64PresetManager.getNextPresetId(context));
+        else etName.setText(context.getString(R.string.preset)+"-"+ Box86PresetManager.getNextPresetId(context));
         loadEnvVarsList();
 
         super.setOnConfirmCallback(() -> {
             String name = etName.getText().toString().trim();
             if (name.isEmpty()) return;
             name = name.replaceAll("[,\\|]+", "");
-            Box64PresetManager.editPreset(context, preset != null ? preset.id : null, name, getEnvVars());
+            Box86PresetManager.editPreset(context, preset != null ? preset.id : null, name, getEnvVars());
             if (onConfirmCallback != null) onConfirmCallback.run();
         });
     }
@@ -83,18 +83,18 @@ public class Box64EditPresetDialog extends ContentDialog {
         try {
             LinearLayout parent = findViewById(R.id.LLContent);
             LayoutInflater inflater = LayoutInflater.from(context);
-            JSONArray data = new JSONArray(FileUtils.readString(context, "box64/env_vars.json"));
-            EnvVars envVars = preset != null ? Box64PresetManager.getEnvVars(context, preset.id) : null;
+            JSONArray data = new JSONArray(FileUtils.readString(context, "box86/env_vars.json"));
+            EnvVars envVars = preset != null ? Box86PresetManager.getEnvVars(context, preset.id) : null;
 
             for (int i = 0; i < data.length(); i++) {
                 JSONObject item = data.getJSONObject(i);
                 final String name = item.getString("name");
-                View child = inflater.inflate(R.layout.box64_env_var_list_item, parent, false);
+                View child = inflater.inflate(R.layout.box86_env_var_list_item, parent, false);
                 ((TextView)child.findViewById(R.id.TextView)).setText(name);
 
                 child.findViewById(R.id.BTHelp).setOnClickListener((v) -> {
-                    String suffix = name.replace("BOX64_", "").toLowerCase(Locale.ENGLISH);
-                    String value = StringUtils.getString(context, "box64_env_var_help__"+suffix);
+                    String suffix = name.replace("BOX86_", "").toLowerCase(Locale.ENGLISH);
+                    String value = StringUtils.getString(context, "box86_env_var_help__"+suffix);
                     AppUtils.showHelpBox(context, v, value);
                 });
 

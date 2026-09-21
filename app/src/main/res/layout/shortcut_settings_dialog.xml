@@ -281,18 +281,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/box64_preset" />
+                        android:text="@string/box86_preset" />
 
                     <Spinner
                         style="@style/ComboBox"
-                        android:id="@+id/SBox64Preset"
+                        android:id="@+id/SBox86Preset"
                         android:layout_width="match_parent" />
                 </LinearLayout>
 
                 <TextView
                     style="@style/FieldSetLabel"
                     android:background="?attr/colorSecondarySurface"
-                    android:text="@string/box64" />
+                    android:text="@string/box86" />
             </FrameLayout>
 
             <FrameLayout

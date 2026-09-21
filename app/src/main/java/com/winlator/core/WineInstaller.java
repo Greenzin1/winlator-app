@@ -6,7 +6,7 @@ import android.net.Uri;
 
 import com.winlator.MainActivity;
 import com.winlator.R;
-import com.winlator.box64.Box64Preset;
+import com.winlator.box86.Box86Preset;
 import com.winlator.container.Container;
 import com.winlator.xenvironment.RootFS;
 import com.winlator.xenvironment.XEnvironment;
@@ -35,7 +35,7 @@ public abstract class WineInstaller {
         FileUtils.symlink(containerPatternDir.getPath(), linkFile.getPath());
 
         GuestProgramLauncherComponent guestProgramLauncherComponent = environment.getComponent(GuestProgramLauncherComponent.class);
-        guestProgramLauncherComponent.setBox64Preset(Box64Preset.STABILITY);
+        guestProgramLauncherComponent.setBox86Preset(Box86Preset.STABILITY);
         guestProgramLauncherComponent.setGuestExecutable("wine explorer /desktop=shell,"+ Container.DEFAULT_SCREEN_SIZE+" C:\\windows\\system32\\winecfg.exe");
 
         final PreloaderDialog preloaderDialog = new PreloaderDialog(activity);

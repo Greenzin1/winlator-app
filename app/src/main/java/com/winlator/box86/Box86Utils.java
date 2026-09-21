@@ -1,4 +1,4 @@
-package com.winlator.box64;
+package com.winlator.box86;
 
 import android.content.Context;
 
@@ -11,13 +11,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public abstract class Box64Utils {
+public abstract class Box86Utils {
     public static String extractBinVersion(Context context) {
-        File binFile = new File(RootFS.find(context).getRootDir(), "/usr/local/bin/box64");
+        File binFile = new File(RootFS.find(context).getRootDir(), "/usr/local/bin/box86");
         try (BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(binFile), StreamUtils.BUFFER_SIZE)) {
             int bytesRead;
             byte[] buffer = new byte[4096];
-            final byte[] str = {'B','o','x','6','4',' ','a','r','m','6','4',' ','v'};
+            final byte[] str = {'B','o','x','8','6',' ','a','r','m','6','4',' ','v'};
             while ((bytesRead = inStream.read(buffer)) != -1) {
                 int index = ArrayUtils.indexOf(buffer, 0, bytesRead, str);
                 if (index != ArrayUtils.INDEX_NOT_FOUND) {

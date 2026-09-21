@@ -126,7 +126,7 @@
         <item>Trebuchet MS</item>
         <item>Verdana</item>
     </string-array>
-    <string-array name="box64_logs">
+    <string-array name="box86_logs">
         <item>@string/disable</item>
         <item>@string/minimal</item>
         <item>@string/trace</item>

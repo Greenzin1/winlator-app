@@ -1,6 +1,6 @@
 package com.winlator.container;
 
-import com.winlator.box64.Box64Preset;
+import com.winlator.box86.Box86Preset;
 import com.winlator.core.AppUtils;
 import com.winlator.core.EnvVars;
 import com.winlator.core.FileUtils;
@@ -46,7 +46,7 @@ public class Container {
     private String cpuList;
     private String cpuListWoW64;
     private String desktopTheme = WineThemeManager.DEFAULT_DESKTOP_THEME;
-    private String box64Preset = Box64Preset.DEFAULT;
+    private String box86Preset = Box86Preset.DEFAULT;
     private File rootDir;
     private JSONObject extraData;
 
@@ -183,12 +183,12 @@ public class Container {
         this.cpuListWoW64 = cpuListWoW64 != null && !cpuListWoW64.isEmpty() ? cpuListWoW64 : null;
     }
 
-    public String getBox64Preset() {
-        return box64Preset;
+    public String getBox86Preset() {
+        return box86Preset;
     }
 
-    public void setBox64Preset(String box64Preset) {
-        this.box64Preset = box64Preset;
+    public void setBox86Preset(String box86Preset) {
+        this.box86Preset = box86Preset;
     }
 
     public File getRootDir() {
@@ -301,7 +301,7 @@ public class Container {
             data.put("drives", drives);
             data.put("hudMode", hudMode);
             data.put("startupSelection", startupSelection);
-            data.put("box64Preset", box64Preset);
+            data.put("box86Preset", box86Preset);
             data.put("desktopTheme", desktopTheme);
             data.put("extraData", extraData);
 
@@ -376,8 +376,8 @@ public class Container {
                 case "wineVersion" :
                     setWineVersion(data.getString(key));
                     break;
-                case "box64Preset" :
-                    setBox64Preset(data.getString(key));
+                case "box86Preset" :
+                    setBox86Preset(data.getString(key));
                     break;
                 case "audioDriver" :
                     setAudioDriver(data.getString(key));

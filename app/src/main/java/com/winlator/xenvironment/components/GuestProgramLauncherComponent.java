@@ -6,8 +6,8 @@ import android.os.Process;
 
 import androidx.preference.PreferenceManager;
 
-import com.winlator.box64.Box64Preset;
-import com.winlator.box64.Box64PresetManager;
+import com.winlator.box86.Box86Preset;
+import com.winlator.box86.Box86PresetManager;
 import com.winlator.core.Callback;
 import com.winlator.core.DefaultVersion;
 import com.winlator.core.EnvVars;
@@ -27,7 +27,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
     private String guestExecutable;
     private static int pid = -1;
     private EnvVars envVars;
-    private String box64Preset = Box64Preset.CONSERVATIVE;
+    private String box86Preset = Box86Preset.CONSERVATIVE;
     private Callback<Integer> terminationCallback;
     private static final Object lock = new Object();
 
@@ -35,8 +35,8 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
     public void start() {
         synchronized (lock) {
             stop();
-            extractBox64File();
-            copyDefaultBox64RCFile();
+            extractBox86File();
+            copyDefaultBox86RCFile();
             pid = execGuestProgram();
         }
     }
@@ -75,12 +75,12 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         this.envVars = envVars;
     }
 
-    public String getBox64Preset() {
-        return box64Preset;
+    public String getBox86Preset() {
+        return box86Preset;
     }
 
-    public void setBox64Preset(String box64Preset) {
-        this.box64Preset = box64Preset;
+    public void setBox86Preset(String box86Preset) {
+        this.box86Preset = box86Preset;
     }
 
     private int execGuestProgram() {
@@ -88,7 +88,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         File rootDir = rootFS.getRootDir();
 
         EnvVars envVars = new EnvVars();
-        addBox64EnvVars(envVars);
+        addBox86EnvVars(envVars);
         LocaleHelper.setEnvVars(envVars);
 
         envVars.put("HOME", rootDir+RootFS.HOME_PATH);
@@ -97,7 +97,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         envVars.put("DISPLAY", ":0");
         envVars.put("PATH", rootDir+rootFS.getWinePath()+"/bin:"+rootDir+"/usr/local/bin:"+rootDir+"/usr/bin");
         envVars.put("LD_LIBRARY_PATH", rootFS.getLibDir().getPath());
-        envVars.put("BOX64_LD_LIBRARY_PATH", rootDir+"/lib/x86_64-linux-gnu");
+        envVars.put("BOX86_LD_LIBRARY_PATH", rootDir+"/lib/i386-linux-gnu");
         envVars.put("ANDROID_SYSVSHM_SERVER", rootDir+UnixSocketConfig.SYSVSHM_SERVER_PATH);
 
         if (this.envVars != null) envVars.putAll(this.envVars);
@@ -105,7 +105,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         File shmDir = new File(rootDir, "/tmp/shm");
         if (!shmDir.isDirectory()) shmDir.mkdirs();
 
-        String command = rootDir+"/usr/local/bin/box64 "+guestExecutable;
+        String command = rootDir+"/usr/local/bin/box86 "+guestExecutable;
 
         return ProcessHelper.exec(command, envVars, rootDir, (status) -> {
             synchronized (lock) {
@@ -115,44 +115,44 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         });
     }
 
-    private void extractBox64File() {
+    private void extractBox86File() {
         Context context = environment.getContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String box64Version = preferences.getString("box64_version", DefaultVersion.BOX64);
-        String currentBox64Version = preferences.getString("current_box64_version", "");
+        String box86Version = preferences.getString("box86_version", DefaultVersion.BOX86);
+        String currentBox86Version = preferences.getString("current_box86_version", "");
 
-        if (!box64Version.equals(currentBox64Version)) {
-            GeneralComponents.extractFile(GeneralComponents.Type.BOX64, context, box64Version, DefaultVersion.BOX64);
-            preferences.edit().putString("current_box64_version", box64Version).apply();
+        if (!box86Version.equals(currentBox86Version)) {
+            GeneralComponents.extractFile(GeneralComponents.Type.BOX86, context, box86Version, DefaultVersion.BOX86);
+            preferences.edit().putString("current_box86_version", box86Version).apply();
         }
     }
 
-    private void copyDefaultBox64RCFile() {
+    private void copyDefaultBox86RCFile() {
         Context context = environment.getContext();
         RootFS rootFS = environment.getRootFS();
-        FileUtils.copy(context, "box64/default.box64rc", new File(rootFS.getRootDir(), "/etc/config.box64rc"));
+        FileUtils.copy(context, "box86/default.box86rc", new File(rootFS.getRootDir(), "/etc/config.box86rc"));
     }
 
-    private void addBox64EnvVars(EnvVars envVars) {
+    private void addBox86EnvVars(EnvVars envVars) {
         Context context = environment.getContext();
         RootFS rootFS = environment.getRootFS();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int box64Logs = preferences.getInt("box64_logs", 0);
+        int box86Logs = preferences.getInt("box86_logs", 0);
         boolean saveToFile = preferences.getBoolean("save_logs_to_file", false);
 
-        envVars.put("BOX64_NOBANNER", box64Logs >= 1 ? "0" : "1");
-        envVars.put("BOX64_DYNAREC", "1");
-        envVars.put("BOX64_UNITYPLAYER", "0");
-        envVars.put("BOX64_DYNACACHE", "0");
+        envVars.put("BOX86_NOBANNER", box86Logs >= 1 ? "0" : "1");
+        envVars.put("BOX86_DYNAREC", "1");
+        envVars.put("BOX86_UNITYPLAYER", "0");
+        envVars.put("BOX86_DYNACACHE", "0");
 
-        if (box64Logs >= 1) {
-            envVars.put("BOX64_LOG", "1");
-            envVars.put("BOX64_DYNAREC_MISSING", "1");
+        if (box86Logs >= 1) {
+            envVars.put("BOX86_LOG", "1");
+            envVars.put("BOX86_DYNAREC_MISSING", "1");
 
-            if (box64Logs == 2) {
-                envVars.put("BOX64_SHOWSEGV", "1");
-                envVars.put("BOX64_DLSYM_ERROR", "1");
-                envVars.put("BOX64_TRACE_FILE", "stderr");
+            if (box86Logs == 2) {
+                envVars.put("BOX86_SHOWSEGV", "1");
+                envVars.put("BOX86_DLSYM_ERROR", "1");
+                envVars.put("BOX86_TRACE_FILE", "stderr");
 
                 if (saveToFile) {
                     File parent = (new File(preferences.getString("log_file", LogView.getLogFile().getPath()))).getParentFile();
@@ -161,16 +161,16 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
                         if (!traceDir.isDirectory()) traceDir.mkdirs();
                         FileUtils.clear(traceDir);
 
-                        envVars.put("BOX64_TRACE_FILE", traceDir+"/box64-%pid.txt");
+                        envVars.put("BOX86_TRACE_FILE", traceDir+"/box86-%pid.txt");
                     }
                 }
             }
         }
 
-        envVars.putAll(Box64PresetManager.getEnvVars(context, box64Preset));
+        envVars.putAll(Box86PresetManager.getEnvVars(context, box86Preset));
 
-        File box64RCFile = new File(rootFS.getRootDir(), "/etc/config.box64rc");
-        envVars.put("BOX64_RCFILE", box64RCFile.getPath());
+        File box86RCFile = new File(rootFS.getRootDir(), "/etc/config.box86rc");
+        envVars.put("BOX86_RCFILE", box86RCFile.getPath());
     }
 
     @Override

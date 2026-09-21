@@ -157,7 +157,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         NavigationView navigationView = findViewById(R.id.NavigationView);
         ProcessHelper.removeAllDebugCallbacks();
-        boolean enableLogs = preferences.getBoolean("enable_wine_debug", false) || preferences.getInt("box64_logs", 0) >= 1;
+        boolean enableLogs = preferences.getBoolean("enable_wine_debug", false) || preferences.getInt("box86_logs", 0) >= 1;
         if (enableLogs) ProcessHelper.addDebugCallback(debugDialog = new DebugDialog(this));
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.menu_item_logs).setVisible(enableLogs);
@@ -514,7 +514,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             if (shortcut != null) envVars.putAll(shortcut.getExtra("envVars"));
             if (!envVars.has("WINEESYNC")) envVars.put("WINEESYNC", "1");
 
-            guestProgramLauncherComponent.setBox64Preset(shortcut != null ? shortcut.getExtra("box64Preset", container.getBox64Preset()) : container.getBox64Preset());
+            guestProgramLauncherComponent.setBox86Preset(shortcut != null ? shortcut.getExtra("box86Preset", container.getBox86Preset()) : container.getBox86Preset());
         }
 
         environment = new XEnvironment(this, rootFS);

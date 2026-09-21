@@ -135,10 +135,10 @@
     <string name="clear_cache">Clear Cache</string>
     <string name="estimated_used_space">Estimated Used Space</string>
     <string name="advanced">Advanced</string>
-    <string name="box64" translatable="false">Box64</string>
+    <string name="box86" translatable="false">Box86</string>
     <string name="system">System</string>
-    <string name="box64_preset">Box64 Preset</string>
-    <string name="box64_version">Box64 Version</string>
+    <string name="box86_preset">Box86 Preset</string>
+    <string name="box86_version">Box86 Version</string>
     <string name="letter">Letter</string>
     <string name="target_path">Target Path</string>
     <string name="width">Width</string>
@@ -177,44 +177,44 @@
         <i><b>VKD3D</b></i> is a translation layer for Direct3D 12 API to Vulkan.<br /><br />
         <i><b>CNC DDraw</b></i> is an implementation of DirectDraw for better compatibility with classic games.
     ]]></string>
-    <string name="box64_env_var_help__dynarec_safeflags" translatable="false"><![CDATA[
+    <string name="box86_env_var_help__dynarec_safeflags" translatable="false"><![CDATA[
         Handling of flags on CALL/RET opcodes<br /><br />
         <b>0</b> : Treats CALL/RET as if it never needed flags (faster, unstable)<br />
         <b>1</b> : Most RET will need flags, most CALLS will not<br />
         <b>2</b> : All CALL/RET will need flags (slower)
     ]]></string>
-    <string name="box64_env_var_help__dynarec_fastnan" translatable="false">Generation of -NAN like on x86</string>
-    <string name="box64_env_var_help__dynarec_fastround" translatable="false"><![CDATA[
+    <string name="box86_env_var_help__dynarec_fastnan" translatable="false">Generation of -NAN like on x86</string>
+    <string name="box86_env_var_help__dynarec_fastround" translatable="false"><![CDATA[
         Generation of precise x86 rounding<br /><br />
         <b>0</b> : Generate float/double -> int rounding like on x86<br />
         <b>1</b> : Don\'t do anything special with edge case Rounding, to go as fast as possible (no INF/NAN/Overflow -> MIN_INT conversion)<br />
         <b>2</b> : Everything from 1 plus also fast round of double -> float (not taking into account current rounding mode)
     ]]></string>
-    <string name="box64_env_var_help__dynarec_x87double" translatable="false">Use of Float/Double for x87 emulation</string>
-    <string name="box64_env_var_help__dynarec_bigblock" translatable="false"><![CDATA[
+    <string name="box86_env_var_help__dynarec_x87double" translatable="false">Use of Float/Double for x87 emulation</string>
+    <string name="box86_env_var_help__dynarec_bigblock" translatable="false"><![CDATA[
         Dynarec building BigBlock<br /><br />
         <b>0</b> : Don\'t try to build block as big as possible<br />
         <b>1</b> : Build Dynarec block as big as possible<br />
         <b>2</b> : Build Dynarec block bigger (continue when block overlaps, but only for blocks in elf memory)<br />
         <b>3</b> : Build Dynarec block bigger (continue when block overlaps, for all types of memory)
     ]]></string>
-    <string name="box64_env_var_help__dynarec_strongmem" translatable="false"><![CDATA[
+    <string name="box86_env_var_help__dynarec_strongmem" translatable="false"><![CDATA[
         Simulation of Strong Memory model<br /><br />
         <b>0</b> : Don\'t try anything special<br />
         <b>1</b> : Enable some Memory Barrier when writing to memory (on some MOV opcode)<br />
         <b>2</b> : All 1 plus a Memory Barrier on every write to memory using MOV<br />
         <b>3</b> : All 2 plus Memory Barrier when reading from memory and on some SSE/SSE2 opcodes
     ]]></string>
-    <string name="box64_env_var_help__dynarec_weakbarrier" translatable="false"><![CDATA[
+    <string name="box86_env_var_help__dynarec_weakbarrier" translatable="false"><![CDATA[
         Tweak the memory barriers to reduce the performance impact by strongmem<br /><br />
         <b>0</b> : Use regular safe barrier<br />
         <b>1</b> : Use weak barriers to have more performance boost<br />
         <b>2</b> : All in 1, plus disabled the last write barriers
     ]]></string>
-    <string name="box64_env_var_help__dynarec_forward" translatable="false">Defines the max allowed forward value when building Block</string>
-    <string name="box64_env_var_help__dynarec_callret" translatable="false">Optimization of CALL/RET opcodes</string>
-    <string name="box64_env_var_help__dynarec_wait" translatable="false">Defines whether or not Dynarec will wait for the FillBlock to be ready</string>
-    <string name="box64_env_var_help__dynarec_nativeflags" translatable="false">The generated code will use native flags, if possible</string>
+    <string name="box86_env_var_help__dynarec_forward" translatable="false">Defines the max allowed forward value when building Block</string>
+    <string name="box86_env_var_help__dynarec_callret" translatable="false">Optimization of CALL/RET opcodes</string>
+    <string name="box86_env_var_help__dynarec_wait" translatable="false">Defines whether or not Dynarec will wait for the FillBlock to be ready</string>
+    <string name="box86_env_var_help__dynarec_nativeflags" translatable="false">The generated code will use native flags, if possible</string>
     <string name="columns">Columns</string>
     <string name="directinput_mapper_type">DirectInput Mapper Type</string>
     <string name="desktop">Desktop</string>
@@ -229,7 +229,7 @@
     <string name="options">Options</string>
     <string name="logs">Logs</string>
     <string name="enable_wine_debug">Enable Wine debug</string>
-    <string name="box64_logs">Box64 Logs</string>
+    <string name="box86_logs">Box86 Logs</string>
     <string name="export">Export</string>
     <string name="logs_exported_to">Logs exported to</string>
     <string name="general">General</string>

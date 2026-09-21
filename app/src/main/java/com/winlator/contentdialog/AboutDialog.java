@@ -27,7 +27,7 @@ public class AboutDialog extends ContentDialog {
             String creditsAndThirdPartyAppsHTML = String.join("<br />",
                 "GLIBC Patches by (<a href=\"https://github.com/termux-pacman/glibc-packages\">Termux Pacman</a>)",
                 "Wine (<a href=\"https://www.winehq.org\">winehq.org</a>)",
-                "Box86/Box64 by <a href=\"https://github.com/ptitSeb\">ptitseb</a>",
+                "Box86 by <a href=\"https://github.com/ptitSeb\">ptitseb</a>",
                 "Mesa (Turnip/Zink/VirGL) (<a href=\"https://www.mesa3d.org\">mesa3d.org</a>)",
                 "DXVK (<a href=\"https://github.com/doitsujin/dxvk\">github.com/doitsujin/dxvk</a>)",
                 "VKD3D (<a href=\"https://gitlab.winehq.org/wine/vkd3d\">gitlab.winehq.org/wine/vkd3d</a>)",

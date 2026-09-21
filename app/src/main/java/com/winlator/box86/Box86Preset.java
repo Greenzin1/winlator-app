@@ -1,8 +1,8 @@
-package com.winlator.box64;
+package com.winlator.box86;
 
 import androidx.annotation.NonNull;
 
-public class Box64Preset {
+public class Box86Preset {
     public static final String STABILITY = "STABILITY";
     public static final String CONSERVATIVE = "CONSERVATIVE";
     public static final String INTERMEDIATE = "INTERMEDIATE";
@@ -12,7 +12,7 @@ public class Box64Preset {
     public final String id;
     public final String name;
 
-    public Box64Preset(String id, String name) {
+    public Box86Preset(String id, String name) {
         this.id = id;
         this.name = name;
     }
