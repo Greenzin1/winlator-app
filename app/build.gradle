@@ -10,6 +10,10 @@ android {
         targetSdkVersion 28
         versionCode 33
         versionName "11.2"
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
     }
 
     buildTypes {
@@ -21,10 +25,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    ndk {
-        abiFilters 'armeabi-v7a'
     }
 
     lintOptions {
